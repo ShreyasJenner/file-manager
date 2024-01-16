@@ -1,34 +1,73 @@
 #!/bin/bash
 
+### ENVS ###
+PROJ_DIR="/home/ouroboros/dev/projects/file-manager"
+export DIALOGRC="$PROJ_DIR/dialog.conf"
+echo "$DIALOGRC"
+### ENVS ###
+
 # gets list of directories in pwd seprated by ,
-dir=$(find . -maxdepth 1 -type d -printf '%f,')
-#echo "$dir"
+#dir=$(find . -maxdepth 1 -type d -printf '%f,')
+dir=$(find . -maxdepth 1 -type d -printf '%f,' | tr "," "\n")
+lines=$(echo "$dir" | wc -l)
+#echo "$dir" | sed -n 2p 
 
 # store all directory names into arr
 i=1
-arr=()
-while (( i <= 3))
+declare -a dir_arr=()
+dir_arr+=( "$i" )
+dir_arr+=( ".." )
+(( i++ ))
+while (( i <= "$lines"))
 do
-    arr+=( $( echo "$dir" | cut -d "," -f $i ) )
+    dir_arr+=( "$(( i ))" )
+    dir_arr+=( $( echo "$dir" | sed -n "${i}"p ) )
     (( i++ ))
 done
 
-echo "${arr[@]}"
+#echo "${dir_arr[@]}"
+
+### TEST FOR LOOP ###
 # for loop to print contents of array
-#for i in "${arr[@]}";
+#for i in "${dir_arr[@]}";
 #do
 #    echo  "$i";
 #done
 #echo ''
+### TEST FOR LOOP ###
 
-char="a"
-while [ "$char" != "q" ];
-do
-    read char
-    if  printf '%s\0' "${arr[@]}" | grep -q -F -z -x -- "$char" ;
-    then    
-        cd "$char"
-        return 0
-    fi
 
-done
+### DIALOG BOX CREATION ###
+selection=$(dialog --clear \
+    --menu "File List" \
+    20 40 5 \
+    "${dir_arr[@]}" \
+    3>&1 1>&2 2>&3 3>&- \
+)
+### DIALOG BOX CREATION ###
+if ! [ -z "$selection" ];
+then
+    cd "${dir_arr[(( 2*selection ))]}"
+fi
+
+#cd "${dir_arr["$selection"]}"
+
+### MAIN LOOP ###
+#char="a"
+#while [ "$char" != "q" ];
+#do
+#    read char
+#    if  printf '%s\0' "${dir_arr[@]}" | grep -q -F -z -x -- "$char" ;
+#    then    
+#        cd "$char"
+#        return 0
+#    fi
+#
+#done
+### MAIN LOOP ###
+
+
+### CLEAR SCREEN ###
+clear
+return 0
+### CLEAR SCREEN ###
