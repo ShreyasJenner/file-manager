@@ -3,7 +3,6 @@
 ### ENVS ###
 PROJ_DIR="/home/ouroboros/dev/projects/file-manager"
 export DIALOGRC="$PROJ_DIR/dialog.conf"
-echo "$DIALOGRC"
 ### ENVS ###
 
 # gets list of directories in pwd seprated by ,
@@ -40,7 +39,7 @@ done
 ### DIALOG BOX CREATION ###
 selection=$(dialog --clear \
     --menu "File List" \
-    20 40 5 \
+    -1 -1 5 \
     "${dir_arr[@]}" \
     3>&1 1>&2 2>&3 3>&- \
 )
@@ -68,6 +67,6 @@ fi
 
 
 ### CLEAR SCREEN ###
-clear
+tput -x clear
 return 0
 ### CLEAR SCREEN ###
