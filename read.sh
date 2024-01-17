@@ -57,19 +57,13 @@ function dialog_box() {
 selection="a"
 while ! [ -z "$selection" ];
 do
+    path=$(pwd)
     store_dirs dir_arr
     dialog_box
     #echo "${dir_arr[@]}"
     #read selection
     #echo "${dir_arr[(( 2*selection+1 ))]}"
     cd "${dir_arr[(( 2*selection+1 ))]}"
-    path=$(pwd)
 done
 echo "$path"
 ##### MAIN LOOP #####
-
-
-
-##### CLEAR SCREEN #####
-#tput -x clear
-##### CLEAR SCREEN #####
