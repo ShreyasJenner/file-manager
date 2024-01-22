@@ -1,9 +1,11 @@
-# main script
 
-DIR="/home/ouroboros/dev/projects/file-manager"
-var=$($DIR/./read.sh)
-cd $var
+DIR="/home/ouroboros/dev/projects/git/file-manager"
 
-##### CLEAR SCREEN #####
-tput -x clear
-##### CLEAR SCREEN #####
+var=""
+while [ "$var" != '.' ];
+do
+    "$DIR"/./tree.sh
+    var=$("$DIR"/./fm < "$DIR"/tree)
+
+    cd $var
+done
