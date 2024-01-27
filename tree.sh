@@ -10,15 +10,17 @@ DIR="/home/ouroboros/dev/projects/git/file-manager"
 
 ##### STORE VISIBLE DIRECTORIES INTO arr #####
 function store_dirs() {
-    dir=$( find . -maxdepth 1 -type d \( -name '.*' -o -printf '%f\n' \))
+    dir=$( find $1 -maxdepth 1 -type d \( -name '.*' -o -printf '%p\n' \))
     lines=$(echo "$dir" | wc -l)
     if ! [ -z "$dir" ];
     then
         (( lines++ ))
     fi
-    echo "$lines" > "$DIR"/tree
-    echo ".." >> "$DIR"/tree
-    echo "$dir" >> "$DIR"/tree
+    #echo "$lines" > "$DIR"/input
+    echo ".." > "$DIR"/input
+    echo "$dir" >> "$DIR"/input
 }
 ##### STORE VISIBLE DIRECTORIES INTO arr #####
-store_dirs 
+
+var=$(cat output)
+store_dirs $var
