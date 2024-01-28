@@ -4,6 +4,7 @@ import (
     "fmt"
     "os"
     "os/exec"
+    "strings"
     tea "github.com/charmbracelet/bubbletea"
 )
 
@@ -14,14 +15,9 @@ type model struct {
 
 func initialModel() model {
     var m model
-    m.choices = ReadFile("input")
+    m.choices = ReadFile("/home/ouroboros/dev/projects/git/file-manager/input")
 
     return m
-    /*
-    return model{
-        choice: ReadFile("input")
-    }
-    */
 }
 
 func (m model) Init() tea.Cmd {
@@ -30,7 +26,7 @@ func (m model) Init() tea.Cmd {
 }
 
 func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
-    m.choices = ReadFile("input")
+    m.choices = ReadFile("/home/ouroboros/dev/projects/git/file-manager/input")
     switch msg := msg.(type) {
 
     // Is it a key press?
@@ -57,18 +53,23 @@ func (m model) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 
         // The "enter" key and the spacebar (a literal space) toggle
         // the selected state for the item that the cursor is pointing at.
+
+        case "backspace":
+            choice := ReadFile("/home/ouroboros/dev/projects/git/file-manager/currentdir")
+            output := choice[0][:strings.LastIndex(choice[0],"/")]
+            WriteFile("/home/ouroboros/dev/projects/git/file-manager/output", output)
+            _,err := exec.Command("/bin/bash", "/home/ouroboros/dev/projects/git/file-manager/dirs.sh").Output()
+            if ( err != nil) {
+                fmt.Println("bad script")
+            }
+
         case "enter", " ":
-            WriteFile("output", m.choices[m.cursor])
-            filepath := "/home/ouroboros/dev/projects/git/file-manager/pet.sh"
-            mydir,err := os.Getwd()
-            if err != nil {
-                fmt.Println("bad dir")
+            WriteFile("/home/ouroboros/dev/projects/git/file-manager/output", m.choices[m.cursor])
+            _,err := exec.Command("/bin/bash", "/home/ouroboros/dev/projects/git/file-manager/dirs.sh").Output()
+            if ( err != nil) {
+                fmt.Println("bad script")
             }
-            cmd := exec.Command("/bin/bash",filepath,mydir)
-            err = cmd.Run()
-            if(err != nil) {
-                fmt.Println("bad news")
-            }
+
         }
     }
 
@@ -102,6 +103,15 @@ func (m model) View() string {
 }
 
 func main() {
+    projdir := "/home/ouroboros/dev/projects/git/file-manager/"
+
+    current_dir_file := projdir+"current_dir"
+    output_dir := projdir + "output"
+    //input_dir := projdir+"input"
+
+    //WriteFile(input_dir,);
+    WriteFile(current_dir_file,projdir);
+    WriteFile(output_dir,projdir);
     p := tea.NewProgram(initialModel())
     if _, err := p.Run(); err != nil {
         fmt.Printf("Alas, there's been an error: %v", err)
