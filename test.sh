@@ -11,9 +11,9 @@ pwd > $DIR/currentdir
 cat /dev/null > $DIR/input
 for D in `find . -maxdepth 1 -type d -not -path '*/.*'`;
 do 
-    if [ "$PWD${D#.}" != "$choice" ];
-    then
-        echo "$PWD${D#.}";
-        echo "$PWD${D#.}" >> $DIR/input;
-    fi
+    echo "$PWD$D"
+    #if [ "$PWD${D#.}" != "$choice" ];
+    #then
+    #    echo "$PWD${D#.}";
+    #fi
 done

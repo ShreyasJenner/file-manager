@@ -105,13 +105,19 @@ func (m model) View() string {
 func main() {
     projdir := "/home/ouroboros/dev/projects/git/file-manager/"
 
-    current_dir_file := projdir+"current_dir"
+    current_dir_file := projdir+"currentdir"
     output_dir := projdir + "output"
     //input_dir := projdir+"input"
 
-    //WriteFile(input_dir,);
-    WriteFile(current_dir_file,projdir);
     WriteFile(output_dir,projdir);
+
+    _,err := exec.Command("/bin/bash", "/home/ouroboros/dev/projects/git/file-manager/dirs.sh").Output()
+    if err != nil {
+        fmt.Println("first execute went wrong")
+    }
+
+    WriteFile(current_dir_file,projdir);
+
     p := tea.NewProgram(initialModel())
     if _, err := p.Run(); err != nil {
         fmt.Printf("Alas, there's been an error: %v", err)
