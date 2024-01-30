@@ -12,7 +12,7 @@ do
         cd $var
     elif [ -f "$var" ];
     then
-        xdg-open "$var"
+        xdg-open "$var" &
         break
     fi
 done
