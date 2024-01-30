@@ -5,11 +5,12 @@ var=""
 while [ "$var" != '.' ];
 do
     "$DIR"/./tree.sh
-    var=$("$DIR"/./fm < "$DIR"/tree)
+    "$DIR"/./format.sh
+    var=$("$DIR"/./fm < "$DIR"/formatted)
 
     if [ -d "$var" ];
     then
-        cd $var
+        cd "$var"
     elif [ -f "$var" ];
     then
         xdg-open "$var" &
@@ -19,5 +20,7 @@ done
 
 ### Terminal Sanity Restoration ###
 tput reset
+echo "$var"
+pwd
 ### Terminal Sanity Restoration ###
 
