@@ -17,7 +17,7 @@ function store_dirs() {
         (( lines++ ))
     fi
     echo "$lines" > "$DIR"/tree
-    if ! [ $(pwd) == "$(echo ~)" ];
+    if ! [ $(pwd) == "$(echo ~)" ] && ! [ $(pwd) == "/" ];
     then
         echo ".." >> "$DIR"/tree
     fi

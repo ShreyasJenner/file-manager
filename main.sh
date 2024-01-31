@@ -2,13 +2,18 @@
 DIR="/home/ouroboros/dev/projects/git/file-manager"
 
 var=""
+state=""
 while [ "$var" != '.' ];
 do
     "$DIR"/./tree.sh
     "$DIR"/./format.sh
     var=$("$DIR"/./fm < "$DIR"/formatted)
 
-    if [ -d "$var" ];
+    if ! [ -r "$var" ];
+    then
+        state="NR"  # No read permission
+        break
+    elif [ -d "$var" ];
     then
         cd "$var"
     elif [ -f "$var" ];
@@ -20,7 +25,9 @@ done
 
 ### Terminal Sanity Restoration ###
 tput reset
-echo "$var"
-pwd
+if [ "$state" == "NR" ];
+then
+    echo "Permission denied"
+fi
 ### Terminal Sanity Restoration ###
 
