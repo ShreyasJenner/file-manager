@@ -16,11 +16,16 @@ function store_dirs() {
     then
         (( lines++ ))
     fi
-    echo "$lines" > "$DIR"/tree
+
     if ! [ $(pwd) == "$(echo ~)" ] && ! [ $(pwd) == "/" ];
     then
+        echo "$lines" > "$DIR"/tree
         echo ".." >> "$DIR"/tree
+    else
+        (( lines-- ))
+        echo "$lines" > "$DIR"/tree
     fi
+
     echo "$dir" >> "$DIR"/tree
 }
 ##### STORE VISIBLE DIRECTORIES INTO arr #####

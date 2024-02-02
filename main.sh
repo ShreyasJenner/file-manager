@@ -5,11 +5,13 @@ var=""
 state=""
 while [ "$var" != '.' ];
 do
+
+    echo "$var" >> "$DIR"/.logs
     "$DIR"/./tree.sh
     "$DIR"/./format.sh
     var=$("$DIR"/./fm < "$DIR"/formatted)
 
-    if ! [ -r "$var" ];
+    if [ -f "$var" ] && ! [ -r "$var" ];
     then
         state="NR"  # No read permission
         break
