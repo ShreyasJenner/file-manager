@@ -41,11 +41,17 @@ function hidden_dirs() {
 function store_data() {
     echo "$1" > "$DIR"/tree
     echo "$2" >> "$DIR"/tree
-
 }
 
-#visible_dirs 
-hidden_dirs
-store_data "$hidden_lines" "$hidden_dirs"
-sed -i '2d' "$DIR"/tree 
+if [ "$visible" == true ];
+then
+    visible_dirs 
+    store_data "$lines" "$dir"
+elif [ "$visible" == false ];
+then
+    hidden_dirs
+    store_data "$hidden_lines" "$hidden_dirs"
+    sed -i '2d' "$DIR"/tree 
+fi
+
 
