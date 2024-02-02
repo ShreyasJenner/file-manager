@@ -29,7 +29,7 @@ fm must be in /usr/bin or /usr/local/bin
 ### To-Do:
 - [x] Implement basic file manager
 - [x] support for basic color to diff b/w dirs and files
-- [ ] support for toggling display of hidden files
+- [x] support for toggling display of hidden files
 - [ ] support for search
 
 ### Bugs
