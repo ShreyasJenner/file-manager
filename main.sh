@@ -6,7 +6,7 @@ state=""
 while [ "$var" != '.' ];
 do
 
-    echo "$var" >> "$DIR"/.logs
+    #echo "$var" >> "$DIR"/.logs
     "$DIR"/./tree.sh
     "$DIR"/./format.sh
     var=$("$DIR"/./fm < "$DIR"/formatted)
