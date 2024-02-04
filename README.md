@@ -15,15 +15,17 @@ A file manager using bash
 #### Sourcing
 Since script is executed in a sub shell, it must be sourced for changing directories to actually work
 
-Run the config script to add an alias that automatically sources main.sh
+Run the config script sudo to add a symbolic link to main.sh in the /usr/local/bin directory and add an alias that automatically sources main.sh
 <br>
 OR
 <br>
-Manually add an alias to your shell's configuration file in the below format :
+- Create a soft link to main.sh in /usr/bin or /usr/local/bin
+- Manually add an alias to your shell's configuration file in the below format :
 <br>
-- alias [youralias]='. fm'
+```
+alias <youralias>='. <softlink>'
+```
 
-fm must be in /usr/bin or /usr/local/bin
 
 
 ### To-Do:
