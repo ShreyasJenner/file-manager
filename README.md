@@ -15,7 +15,7 @@ A file manager using bash
 #### Sourcing
 Since script is executed in a sub shell, it must be sourced for changing directories to actually work
 
-Run the config script sudo to add a symbolic link to main.sh in the /usr/local/bin directory and add an alias that automatically sources main.sh
+Run the config script with sudo to add a symbolic link to main.sh in the /usr/local/bin directory and add an alias that automatically sources main.sh
 <br>
 OR
 <br>
@@ -35,4 +35,5 @@ alias <youralias>='. <softlink>'
 - [ ] support for search
 
 ### Bugs
-- japanese characters seem to cause malloc errors (size issues??)
+- non-english characters seem to cause malloc errors (size issues??)
+- special sybmols aren't rendered correctly
