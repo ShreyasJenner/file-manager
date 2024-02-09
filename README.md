@@ -32,7 +32,7 @@ alias <youralias>='. <softlink>'
 - [x] Implement basic file manager
 - [x] support for basic color to diff b/w dirs and files
 - [x] support for toggling display of hidden files
-- [ ] support for search
+- [x] support for search
 
 ### Bugs
 - non-english characters seem to cause malloc errors (size issues??)
