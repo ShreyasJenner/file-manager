@@ -10,6 +10,9 @@ A file manager using bash
 | l | move right |
 | G | last item in list |
 | g | first item in list |
+| / | search for item |
+| n | go to next item that matches searched pattern |
+| b | go to previous item that matches searched pattern |
 | backspace | go to parent directory |
 
 #### Sourcing
