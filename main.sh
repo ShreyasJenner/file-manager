@@ -1,7 +1,7 @@
 
 DIR="/home/ouroboros/dev/projects/git/file-manager"
 
-var=""
+var="value"
 state=""
 export visible=true
 while [ "$var" != '.' ];
