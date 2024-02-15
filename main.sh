@@ -1,7 +1,7 @@
 
 DIR="/home/ouroboros/dev/projects/git/file-manager"
 
-var="value"
+var=""
 state=""
 export visible=true
 while [ "$var" != '.' ];
@@ -11,11 +11,7 @@ do
     "$DIR"/./format.sh
     var=$("$DIR"/./fm < "$DIR"/formatted)
 
-    if [[ -f "$var" ]] && ! [[ -r "$var" ]];
-    then
-        state="NR"  # No read permission
-        break;
-    elif [[ "$var" == "a/a" ]];
+    if [[ "$var" == "a/a" ]];
     then
         if [[ "$visible" == false ]];
         then
